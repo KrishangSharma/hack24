@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{%block content%}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard">
+    <div class="admin-side sidebar">
+        <div class="logo container">
+            <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+            <a href="/">
+                <h4>Public<span>Pulse</span></h4>
+            </a>
+        </div>
+        <div class="sidebar-navigation">
+            <a href="admin_dashboard">Dashboard Overview</a>
+            <a href="user_management">User Management</a>
+            <a href="interaction_management">Interaction Management</a>
+            <a href="">Sentiment Analysis</a>
+            <a href="generate_recommendations">Recommendation Engine</a>
+            <hr/>
+            <a href="logout" class="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+            <div class="sentiment-analysis">
+                <div class="container-fluid sentiment-results">
+                    <h1 class="sentiment-title">Sentiment Analysis Results</h1>
+                    <div class="sentiment-summary">
+                        <h2 class="overall-sentiment">Overall Sentiment: <span>{{ overall_sentiment }}</span></h2>
+                        <!-- <p class="average-score">Average score: <span>{{ average_score }}</span></p> -->
+                    </div>
+                </div>
+                
+                <div class="chart-and-pie">
+                    <div class="chart-container line-chart">    
+                        <canvas id="sentimentChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class="chart-container pie-chart">
+                        <canvas id="sentimentPie" width="400" height="400"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        
+            <div class="category_sentiments">
+                <h2>Sentiment Scores by Category</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Average Sentiment Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in category_sentiments %}
+                        <tr>
+                            <td>{{ category.category }}</td>
+                            <td>{{ category.average_sentiment|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="keywords">
+                    <div class="positive">
+                        <h2>Top positive Keywords</h2>
+                        <ul>
+                            {% for word, freq in top_positive %}
+                            <li>{{word}}:{{freq}}</li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+
+                    <div class="negative">
+                        <h2>Top negative Keywords</h2>
+                        <ul>
+                            {% for word, freq in top_negative %}
+                            <li>{{word}}:{{freq}}</li>
+                            {%endfor%}
+                        </ul>
+                    </div>               
+                </div>
+            </div>
+            <div class="container mt-5 table">
+                <div class="filter-form">
+                    <form method="get">
+                        {{ form.as_p }}
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+                <table id="chatsTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Message</th>
+                            <th>Category</th>
+                            <!-- <th>Response</th> -->
+                            <th>Created At</th>
+                            <th>Sentiment Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for chat in chats %}
+                        <tr>
+                            <td>{{chat.user}}</td>
+                            <td>{{chat.message}}</td>
+                            <td>{{chat.category}}</td>
+                            <!-- <td>{{chat.response}}</td> -->
+                            <td>{{chat.created_at}}</td>
+                            <td>{{chat.sentiment_score}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>        
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //chart
+    document.addEventListener('DOMContentLoaded', function() {
+        const datesData = '{{ dates|safe }}';
+        const scoresData = '{{ scores|safe }}';
+
+        let dates, scores;
+        if (datesData && scoresData) {
+            dates = JSON.parse(datesData);
+            scores = JSON.parse(scoresData);
+        } else {
+            // Generate the last 7 dates and placeholder scores if no data is available
+            const endDate = new Date();
+            dates = [];
+            scores = [];
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(endDate.getTime() - (i * 24 * 60 * 60 * 1000));
+                dates.push(date.toISOString().split('T')[0]); // Format as 'YYYY-MM-DD'
+                scores.push(0); // Placeholder score
+            }
+        }
+
+        var ctx = document.getElementById('sentimentChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Sentiment Score Over Time',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: scores,
+                }]
+            },
+            options:{
+                responsive:true,
+            }
+        });
+    });
+
+    //pie chart
+    document.addEventListener('DOMContentLoaded', function(){
+        var ctx=document.getElementById('sentimentPie').getContext('2d');
+        var chart=new Chart(ctx, {
+            type:'pie',
+            data:{
+                labels:['Positive', 'Negative', 'Neutral'],
+                datasets:[{
+                    label:'Sentiment Distribution',
+                    data:[
+                        '{{ sentiments.positive|default_if_none:"0" }}',
+                        '{{ sentiments.negative|default_if_none:"0" }}',
+                        '{{ sentiments.neutral|default_if_none:"0" }}'
+                    ],
+
+                    backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)'
+                ],
+                borderWidth: 1
+                }]
+            },
+            options:{
+                responsive:true,
+            }
+        });
+    });
+
+    //chats list table
+    $(document).ready(function(){
+        $('#chatsTable').DataTable({
+            "order":[[3, "desc"]]
+        });
+    });
+</script>
+
+
+
+{% endblock %}

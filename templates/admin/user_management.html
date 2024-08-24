@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+
+<div class="dashboard">
+    <div class="admin-side sidebar">
+        <div class="logo container">
+            <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+            <a href="/">
+                <h4>Public<span>Pulse</span></h4>
+            </a>
+        </div>
+        <div class="sidebar-navigation">
+            <a href="admin_dashboard">Dashboard Overview</a>
+            <a href="user_management">User Management</a>
+            <a href="interaction_management">Interaction Management</a>
+            <a href="">Sentiment Analysis</a>
+            <a href="generate_recommendations">Recommendation Engine</a>
+            <hr/>
+            <a href="logout" class="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+            <div class="profiles container">
+                <div class="row">
+                    {% for profile in profiles %}
+                    <div class="col">
+                        <div class="card h-100"> <!-- Added h-100 for equal height -->
+                            <div class="card-body d-flex flex-column"> <!-- Flex column for footer alignment -->
+                                <div class="card-title">
+                                    {{ profile.first_name }} {{ profile.last_name }}
+                                </div>
+                                <div class="card-text mb-4"> <!-- Margin bottom for spacing -->
+                                    {{ profile.user.email }}
+                                </div>
+                                <a href="{% url 'user_detail' user_id=profile.user.id %}" class="btn btn-primary mt-auto"> <!-- mt-auto for aligning to bottom -->
+                                    View Full Profile
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>       
+        </div>
+    </div>    
+</div>
+
+{% endblock %}

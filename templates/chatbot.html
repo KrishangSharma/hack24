@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{%block styles%}
+<style>
+.chatbot{
+    display: flex;
+    justify-content: center;
+}
+.admin-side {
+    width: 200px;
+    background-color: #041416;
+    color: white;
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 50px;
+}
+
+.admin-side .logo{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.admin-side .logo a{
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+
+}
+.admin-side .logo img {
+    max-width: 30%;
+    height: auto;
+}
+.admin-side .logo h4{
+    font-size: 16px;
+    color: white;
+}
+.admin-side .logo span{
+    color: #24CFED;
+}
+
+.sidebar-navigation a {
+    display: block;
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar-navigation a:hover {
+    background-color: #24CFED;
+    color: black;
+    border-left: 3px solid whitesmoke;
+    
+}
+
+@media (max-width: 768px) {
+    .admin-side {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-navigation a {
+        text-align: center;
+    }
+}
+
+.profile .profile-button{
+    border: 2px solid #24CFED;
+    border-radius: 15px;
+}
+.profile .profile-button:hover{
+    background-color: #24CFED !important;
+    border: 2px solid #24CFED !important;
+    color: black !important;
+}
+
+</style>
+{%endblock%}
+{% block content %}
+{% load static %}
+
+<div class="chatbot container">
+    <!-- <div class="admin-side sidebar container">
+        <div class="logo container">
+                <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+                <a href="/">
+                    <h4>Public<span>Pulse</span></h4>
+                </a>
+        </div>
+    </div> -->
+    <div class="chat-container">
+        <div class="card">
+            <div class="card-header welcome">
+                <div class="profile">
+                    Welcome,
+                    {% if not user.is_superuser %}
+                    <a href="user_profile">
+                        <button type="button" class="profile-button"> {{user.username}} </button>
+                    </a>
+                    {%else%}
+                    {{user.username}}
+                    {%endif%}
+                </div>
+                <div class="title">
+                    <a href="/">
+                        <img src="{%static 'Images/publicpulselogo2.png'%}" class="logo"/>
+                    </a>
+                </div>
+                <a href="logout" class="logout-link">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </div>
+
+            <div class="card-body messages-box">
+                <ul class="list-unstyled messages-list">
+                    <li class="message received">
+                        <div class="message-text">
+                            <div class="message-sender">
+                                <img src="{% static 'Images/publicpulselogo.png'%}" class="logo-chat"/>
+                                <!-- <b>ChatPulse</b> -->
+
+                            </div>
+                            <div class="message-content">
+
+                                Hi {{user.username}}! I am the Public Pulse Citizen Assitant. I can help you with any complains and feedback you have concerning the government services.
+                            </div>
+                        </div>
+                    </li>
+
+                    {% for chat in chats %}
+                        {% if chat.user == request.user %}
+
+                            <li class="message sent">
+                                <div class="message-text">
+                                    <div class="message-sender">
+                                        <b>You</b>
+                                    </div>
+                                    <div class="message-content">
+                                        <p>{{chat.message}}</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="message received">
+                                <div class="message-text">
+                                    <div class="message-sender">
+                                        <img src="{% static 'Images/publicpulselogo.png'%}" class="logo-chat"/>
+                                        <!-- <b>ChatPulse</b> -->
+                                    </div>
+                                    <div class="message-content">
+                                        <p>{{chat.response}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <form class="message-form">
+            {%csrf_token%}
+            <div class="input-group">
+                <input type="text" class="form-control message-input" placeholder="Type your message...">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary btn-send">Send</button>
+                </div>
+              </div>
+        </form>
+    </div>
+</div>
+    
+    <script>
+        const messagesList = document.querySelector('.messages-list');
+        const messageForm = document.querySelector('.message-form');
+        const messageInput = document.querySelector('.message-input');
+        
+        messageForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+      
+          const message = messageInput.value.trim();
+          if (message.length === 0) {
+            return;
+          }
+          const messageItem = document.createElement('li');
+          messageItem.classList.add('message', 'sent');
+          messageItem.innerHTML = `
+            <div class="message-text">
+                <div class="message-sender">
+                    <b>You</b>
+                </div>
+                <div class="message-content">
+                    ${message}
+                </div>
+            </div>`;
+            messagesList.appendChild(messageItem); //show which message the user has sent
+
+            messageInput.value = ''; //Once message is sent, it does not remain the input field
+
+            fetch('', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'message': message
+            })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const response = data.response;
+                const messageItem = document.createElement('li');
+                messageItem.classList.add('message', 'received');
+                messageItem.innerHTML = `
+                <div class="message-text">
+                    <div class="message-sender">
+                    <b>ChatPulse</b>
+                    </div>
+                    <div class="message-content">
+                        ${response}
+                    </div>
+                </div>
+                `;
+                messagesList.appendChild(messageItem);
+            });
+            
+        });
+    </script>
+
+{% endblock %}

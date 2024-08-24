@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+
+<div class="header">
+    <div class="logo">
+        <img src="{% static 'Images/publicpulselogo.png' %}"/>
+        <a href="/">
+            <h4>Public<span>Pulse</span></h4>
+        </a>
+    </div>
+    <a href="logout" class="logout-link">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+</div>
+<div class="user-status">
+    <div class="profile">
+        <div class="sidebar">
+            <div class="profile-picture">
+                {% if user.is_authenticated %}
+                <img src="{% static 'Images/placeholder.jpg' %}" alt="user">
+                <h4>{{user.username}}</h4>
+                {%endif%}
+            </div>
+            <a href="user_profile">Profile</a>
+            <a href="chat_history">History</a>
+            <a href="">Status Tracking</a>
+            <a href="change-password">Change Password</a>   
+        </div>
+    </div>
+    <div class="tracking container">
+        <h2>Status Tracking</h2>
+        {% if complaints %}
+            <ul class="complaints-list">
+                {% for complaint in complaints %}
+                    <li class="complaint-item">
+                        <div class="complaint-message">
+                            <strong>{{ complaint.message }}</strong>
+                        </div>
+                        <div class="complaint-details">
+                            Status: <span class="complaint-status">{{ complaint.status }}</span><br>
+                            Submitted on: <span class="complaint-date">{{ complaint.created_at|date:"Y-m-d" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have not submitted any complaints.</p>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,266 @@
+/* interactions */
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&family=Tiro+Telugu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+body, html{
+    background-color: #041416 !important;
+    font-family: "Inknut Antiqua" !important;
+}   
+
+.dashboard{
+    display: flex;
+    justify-content: center;
+
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 80px;
+    justify-content: center;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+
+.admin-side {
+    width: 300px;
+    background-color: #041416;
+    color: white;
+    height: 100vh;
+    padding-bottom: 50px;
+}
+
+.admin-side .logo{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #041416;
+    margin-top: 0px;
+}
+.admin-side .logo a{
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+
+}
+.admin-side .logo img {
+    max-width: 20%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.admin-side .logo h4{
+    font-size: 16px;
+    color: white;
+}
+.admin-side .logo span{
+    color: #24CFED;
+}
+
+.sidebar-navigation a {
+    display: block;
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+.sidebar-navigation{
+    margin-top: 20px;
+}
+.sidebar-navigation a:hover {
+    background-color: #24CFED;
+    color: black;
+    border-left: 3px solid whitesmoke;
+    
+}
+@media (max-width: 768px) {
+    .admin-side {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-navigation a {
+        text-align: center;
+    }
+}
+
+
+/* Content Area */
+.content {
+    padding: 20px;
+}
+
+/* Sentiment Analysis, Keywords, and Category Sentiments Sections */
+.sentiment-analysis, .category_sentiments {
+    background: whitesmoke;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+    margin-top: 40px;
+}
+.category_sentiments{
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.keywords{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    padding-top: 20px;
+}
+.keywords h2{
+    font-size: 15px !important;
+    font-weight: bold;
+}
+.keywords ul li{
+    font-family: 'Tiro Telugu';
+}
+h1, h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+td{
+    font-family: 'Tiro Telugu';
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-side, .content {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .admin-side {
+        padding-bottom: 20px;
+    }
+    
+    .content {
+        padding-top: 20px;
+    }
+}
+
+/* interaction management */
+/* .status{
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+.status{
+    margin: 20px;
+}
+.status .card{
+    background-color: whitesmoke;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.status .card .text-muted{
+    font-size: 12px;
+}
+.status .card-text {
+    font-family: 'Tiro Telugu';
+    margin-bottom: 10px;
+    color: black;
+    font-size: 15px;
+}
+.status .card-text span{
+    color: black;
+    font-weight: bolder;
+}
+.form-inline {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 12px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.status .form-inline .form-control {
+    width: 65%;
+}
+
+.status form .update {
+    width: 30%;
+    background-color: #24CFED;
+    color: black;
+    font-size: 12px;
+}
+
+.status .update:hover{
+    background-color: #041416;
+    color: white;
+    border: none;
+}
+form .btn-danger{
+    font-size: 12px;
+}
+.delete{
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* filter function */
+.filter-form{
+    font-size: 13px;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: center;
+}
+.filter-form .form-control {
+    max-width: 100%;
+     
+}
+
+.filter-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 12px;
+}
+.filter-form .btn{
+    font-size: 12px;
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-form .row > div {
+        width: 100%;
+    }
+    .filter-form .row .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,55 @@
+<!-- {% extends 'base.html' %}
+{%block content %}
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h1>Sentiment Analysis Report</h1>
+
+<p>Overall Sentiment:{{overall_sentiment}}</p>
+<div class="chart-container pie-chart">
+    <canvas id="sentimentPie"></canvas>
+</div>
+
+<h1>Recommendations</h1>
+{% for category, recommendations in category_recommendations.items %}
+<h3>{{category}}</h3>
+<ul>
+    {% for recommendation in recommendations %}
+    <li>
+        {{recommendation}}
+    </li>
+    {%endfor%}
+</ul>
+{%endfor%}
+<a href="{%url 'generate_pdf_report'%}">Download PDF Report</a>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var ctx=document.getElementById('sentimentPie').getContext('2d');
+        var chart=new Chart(ctx, {
+            type:'pie',
+            data:{
+                labels:['Positive', 'Negative', 'Neutral'],
+                datasets:[{
+                    label:'Sentiment Distribution',
+                    data:[
+                        '{{ sentiments.positive|default_if_none:"0" }}',
+                        '{{ sentiments.negative|default_if_none:"0" }}',
+                        '{{ sentiments.neutral|default_if_none:"0" }}'
+                    ],
+
+                    backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)'
+                ],
+                borderWidth: 1
+                }]
+            },
+            options:{
+                responsive:true,
+            }
+        });
+    });
+</script>
+
+{%endblock%} -->

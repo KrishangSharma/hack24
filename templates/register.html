@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Pulse</title>
+</head>
+<body>
+    <div class="citizenlogin container text-center">
+        <style>body { background-color: #24CFED;}</style>
+
+        <div class="row">
+            <div class="welcome-back col-md-4">
+                <h2>Welcome!</h2>
+                <p>Already have an account?</p>
+                <p>Click below to continue</p>
+                <a href="login">
+                    <button type="button" class="btn btn-block mb-4">Sign In</button>  
+                </a>
+                
+            </div>
+
+            <form class="form-control col-md-8" method="post">
+                {% csrf_token %}
+                <h4>Create your Account</h4>
+                <div class="form-outline mb-4">
+                <i class="fa fa-user" aria-hidden="true"></i>                        
+                <input 
+                    type="text" 
+                    placeholder="Username *" 
+                    class="form-control" 
+                    name="username"
+                    required />
+                </div>
+                <div class="form-outline mb-4">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input 
+                    type="email" 
+                    placeholder="Email Address *" 
+                    class="form-control" 
+                    name="email"
+                    required />
+                </div>
+
+                <div class="form-outline mb-4">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input 
+                    type="password" 
+                    placeholder="Password *" 
+                    minLength='6' 
+                    name="password1"
+                    class="form-control" 
+                    required />
+                </div>
+                <div class="form-outline mb-4">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input 
+                    type="password" 
+                    placeholder="Confirm Password*" 
+                    minLength='6' 
+                    name="password2"
+                    class="form-control" 
+                    required />
+                </div>
+
+                <button type="submit" class="btn btn-block mb-4">Register</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

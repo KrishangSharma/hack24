@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- header section -->
+        <header class="flex justify-center w-full bg-whitesmoke text-black">
+  <div class="flex justify-center items-center space-x-4">
+    <img src="{% static 'Images/publicpulselogo.png' %}" class="w-24 h-24">
+    <h2 class="text-white text-xl font-bold mt-9">Resolve<span class="text-blue-400">It</span></h2>
+  </div>
+</header>
+
+
+        <!-- navbar section -->
+
+        <nav class=' fixed-nav-bar navbar navbar-expand-lg'>
+            <div class="container-fluid">
+                <button class="navbar-toggler ms-auto bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#n_bar" aria-controls="navbarNavAltMarkup" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="n_bar">
+                    <a href="#home" class="nav-link"><h4>Home</h4></a>
+                    <a href="#about" class="nav-link"><h4>About</h4></a>
+                    <a href="#features" class="nav-link"><h4>Features</h4></a>
+                    <a href="#howitworks" class="nav-link"><h4>How it works</h4></a>
+                    <div class="auth">
+                        {% if user.is_authenticated %}
+
+                        <a href="chatbot/logout" class="nav-link"><button type="button" class="btn">Logout</button></a>
+                        {% if user.is_staff or user.is_superuser %}
+                        <a href="pulse_admin/admin_dashboard" class="nav-link"><button type="button" class="btn">Admin</button></a>
+                        <!-- <a href="{% url 'admin:index' %}" class="nav-link"><button type="button" class="btn">Admin</button></a> -->
+                        {% endif %}
+                        {%else%}
+                        <a href="chatbot/register" class="nav-link"><button type="button" class="btn">Register</button></a>
+                        <a href="chatbot/login" class="nav-link log-in"><button type="button" class="btn">LogIn</button></a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+
+        <script>
+        $(document).ready(function() {
+
+            // Calculate the height of <header>
+            // Use outerHeight() instead of height() if have padding
+            var aboveHeight = $('header').outerHeight();
+
+            // when scroll
+            $(window).scroll(function(){
+
+                // if scrolled down more than the header’s height
+                if ($(window).scrollTop() > aboveHeight){
+
+                    // if yes, add “fixed” class to the <nav>
+                    // add padding top to the #content
+                    // (value is same as the height of the nav)
+                    $('nav').addClass('fixed').css('top','0').next().css('padding-top','60px');
+
+                } else {
+
+                    // when scroll up or less than aboveHeight,
+                    // remove the “fixed” class, and the padding-top
+                    $('nav').removeClass('fixed').next().css('padding-top','0');
+                }
+            });
+        });
+    </script>
+
+
+        <!-- hero section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">ResolveIt</h1>
+                <p class="hero-description">Empowering citizens through AI for efficient feedback and complaint handling.</p>
+                {% if user.is_authenticated %}
+                <a href="chatbot/" class="hero-button">Get Started</a>
+                {%else%}
+                <a href="chatbot/login" class="hero-button">Get Started</a>
+                {%endif%}
+
+            </div>
+        </div>
+
+        <!-- about section -->
+        <div class="about-section container-fluid" id="about">
+            <div class="about row justify-content-center">
+                <div class="content col-6">
+                    <h2><span>Ab</span>out</h2>
+                    <p>Public Pulse is your one-stop online platform to connect with your government, have your say, and make a
+                        difference. We believe every citizen's voice deserves to be heard, and this AI-powered system makes
+                        it easier than ever to share your feedback and report issues.</p>
+                </div>
+
+                <div class="image col-4">
+                    <img class="aboutpic" src="{% static 'Images/handshaking.png' %}" alt="Handshaking"></img>
+                    <div class="back-rectangle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- features section -->
+        <div class="features-section container" id="features">
+            <div class="features row">
+                <h2>Features</h2>
+                <!-- <div class="col-6"> -->
+                    <div class="feature1">
+                        <div class="eclipse1">
+                            <img class="robot" src="{% static 'Images/chatbot.png' %}" alt="Chatbot 1">
+                        </div>
+                        <h4>Interactive Chat-bot</h4>
+                        <p>Ask questions, report issues, and share feedback with the government.</p>
+                    </div>
+                    <div class="feature1">
+                        <div class="eclipse1">
+                            <img class="robot" src="{% static 'Images/chatbot.png' %}" alt="Chatbot 2">
+                        </div>
+                        <h4>Complaints Tracking</h4>
+                        <p>Get real-time updates on the status of your escalated complaints.</p>
+                    </div>
+                <!-- </div> -->
+                <!-- <div class="col-6"> -->
+                    <div class="feature1">
+                        <div class="eclipse1">
+                            <img class="robot" src="{% static 'Images/chatbot2.png' %}" alt="Chatbot 3">
+                        </div>
+                        <h4>Sentiment Analysis</h4>
+                        <p>Gain insights into citizens' opinions and concerns about government services.</p>
+                    </div>
+                    <div class="feature1">
+                        <div class="eclipse1">
+                            <img class="robot" src="{% static 'Images/chatbot2.png' %}" alt="Chatbot 4">
+                        </div>
+                        <h4>Recommendation Engine</h4>
+                        <p>Get actionable recommendations for improving government services based on sentiment
+                            analysis.</p>
+                    </div>
+                    <div class="feature1">
+                        <div class="eclipse1">
+                            <img class="robot" src="{% static 'Images/chatbot2.png' %}" alt="Chatbot 5">
+                        </div>
+                        <h4>Data Visualization</h4>
+                        <p>Analyze trends and patterns in citizen feedback through clear and interactive
+                            visualizations.</p>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+
+        <!-- how to works section -->
+
+
+        <div class="how-it-works container" id="howitworks">
+            <h2>How it Works</h2>
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="card">
+                        <!-- <img class="image1" src="{%static 'Images/image4.png' %}" alt="Step 1"> -->
+                        <h4>User Registration and Authentication</h4>
+                        <p>User starts by registering on the website and providing necessary details for authentication.
+                            This ensures that only authorized users can access the system.</p>
+                    </div>
+                    <div class="card">
+                        <!-- <img class="image1"  src="{%static 'Images/image1.jpg' %}" alt="Chat-bot Interaction"> -->
+                        <h4>Chat-bot Interaction</h4>
+                        <p>Authorized users can then ask questions, report issues, or provide feedback through the chat-bot
+                            interface. The chat-bot employs Natural Language Processing (NLP) to understand and respond to
+                            user queries in real-time.</p>
+                    </div>
+                    <div class="card">
+                        <!-- <img class="image1" src="{%static 'Images/image5.jpg' %}" alt="Follow-up of Escalated Complaints"> -->
+                        <h4>Follow-up of Escalated Complaints</h4>
+                        <p>Critical issues are identified and escalated, triggering alerts for immediate attention.
+                            Automated follow-up mechanisms keep the users informed about the status of their complaints.</p>
+                    </div>
+                    <div class="card">
+                        <!-- <img class="image1"  src="{%static 'Images/image2.png' %}" alt="Sentiment Analysis"> -->
+                        <h4>Sentiment Analysis</h4>
+                        <p>User interactions, including chat logs, issue reports, and feedback, undergo sentiment
+                            analysis. The system gauges the sentiment of citizens to understand public perception.</p>
+                    </div>
+                    <div class="card">
+                        <!-- <img class="image1" src="{%static 'Images/image6.jpg' %}" alt="Recommendation System"> -->
+                        <h4>Recommendation System</h4>
+                        <p>Based on sentiment analysis results, the recommendation system suggests actions or improvements
+                            to the government. Proactive recommendations help address specific areas of concern.</p>
+                    </div>
+                    <div class="card">
+                        <!-- <img class="image1"  src="{%static 'Images/image3.jpg' %}" alt="Data Visualization"> -->
+                        <h4>Data Visualization</h4>
+                        <p>Data visualization tools present trends and insights derived from citizen interactions.
+                            Government officials can access dashboards displaying the frequency of issues and sentiment
+                            trends.</p>
+                    </div>
+                </div>
+                <button class="carousel-prev">&lt;</button>
+                <button class="carousel-next">&gt;</button>
+            </div>
+        </div>
+
+        <script>
+            const carousel = document.querySelector('.carousel');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+
+            let currentIndex = 0;
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % carousel.children.length;
+                updateCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + carousel.children.length) % carousel.children.length;
+                updateCarousel();
+            });
+
+            function updateCarousel() {
+                const translateValue = -currentIndex * 100 + '%';
+                carousel.style.transform = 'translateX(' + translateValue + ')';
+            }
+        </script>
+
+
+        <!-- contact us section -->
+        <!-- <div class=" contact-us container">
+            <h2>Contact Us</h2>
+
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div> -->
+        </div>
+
+        <!-- footer section -->
+        <div class=" footer-end container">
+            <div class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <p>Email: publicpulse024@gmail.com</p>
+                        <p>Phone: +254 112 516 719</p>
+                        <div class="social-icons">
+                            <a href="#" target="_blank">Facebook</a>
+                            <a href="#" target="_blank">Twitter</a>
+                            <a href="#" target="_blank">LinkedIn</a>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="footer-section">
+                        <h3>Newsletter</h3>
+                        <p>Subscribe to our newsletter for updates.</p>
+                        <div class="contact-form">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
+{% endblock %}

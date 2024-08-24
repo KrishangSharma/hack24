@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{%block content%}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard">
+    <div class="admin-side sidebar">
+        <div class="logo container">
+            <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+            <a href="/">
+                <h4>Public<span>Pulse</span></h4>
+            </a>
+        </div>
+        <div class="sidebar-navigation">
+            <a href="admin_dashboard">Dashboard Overview</a>
+            <a href="user_management">User Management</a>
+            <a href="interaction_management">Interaction Management</a>
+            <a href="overall_sentiment_score">Sentiment Analysis</a>
+            <a href="">Recommendation Engine</a>
+            <hr/>
+            <a href="logout" class="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+            <div class="recommendations">
+                {% if category_recommendations %}
+                    <p>Recommendations for Most Complained about Category</p>
+                    <div class="cards">
+                        {% for category, recommendations in category_recommendations.items %}
+                            <div class="card">
+                                <h3>{{ category }}</h3>
+                                <div class="card-content">
+                                    <h4>Recommendations:</h4>
+                                    <ul>
+                                        {% for point in recommendations %}
+                                            <li>{{ point }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No recommendations available at the time.</p>
+                {% endif %}
+            </div>                                    
+        </div>
+    </div>
+</div>
+{% endblock %}        

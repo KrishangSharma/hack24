@@ -1,0 +1,100 @@
+{% extends 'base.html '%}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'interactions.css' %}">
+
+<div class="dashboard">
+    <div class="admin-side sidebar">
+        <div class="logo container">
+                <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+                <a href="/">
+                    <h4>Public<span>Pulse</span></h4>
+                </a>
+        </div>
+        <div class="sidebar-navigation">
+            <a href="admin_dashboard">Dashboard Overview</a>
+            <a href="user_management">User Management</a>
+            <a href="">Interaction Management</a>
+            <a href="overall_sentiment_score">Sentiment Analysis</a>
+            <a href="generate_recommendations">Recommendation Engine</a>
+            <hr/>
+            <a href="logout" class="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+            <form method="get" class="filter-form">
+                <div class="row">
+                    <div class="col-md-4 align-items-center">
+                        {{ filter_form.user.label_tag }}
+                        {{ filter_form.user }}
+                    </div>
+                    <div class="col-md-4 align-items-center">
+                        {{ filter_form.category.label_tag }}
+                        {{ filter_form.category }}
+                    </div>
+                    <div class="col-md-3 align-items-center" >
+                        {{ filter_form.status.label_tag }}
+                        {{ filter_form.status }}
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </div>
+            </form>
+            <div class="container status">
+                <div class="row">
+                    {% for chat, form in chats_and_forms %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted"> 
+                                        <p>User:{{ chat.user.username }}</p>
+                                        <p>Email: {{chat.user.email}}</p>
+                                        </h6>
+                                    <div class="card-text">
+                                        <p><span>Message:</span>{{ chat.message|truncatewords:20 }}</p>
+                                        <p>
+                                            <span>ChatPulse Response:</span> {{ chat.response|truncatewords:30}}
+                                            <a href="#" data-toggle="modal" data-target="#chatResponseModal{{ forloop.counter }}">Read More</a>
+                                        </p>
+                                        <div class="modal fade" id="chatResponseModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="chatResponseModalLabel{{ forloop.counter }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="chatResponseModalLabel{{ forloop.counter }}">Full ChatPulse Response</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>{{ chat.response }}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form method="post" class="form-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="chat_id" value="{{ chat.id }}">
+                                        {{form.as_p }}
+                                        <button type="submit" class="btn update" name="update_status">Update</button>
+                                    </form>
+                                    <form method="post" class="delete mt-2">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="chat_id_delete" value="{{ chat.id }}">
+                                        <button type="submit" name="delete_chat" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>            
+{% endblock %}

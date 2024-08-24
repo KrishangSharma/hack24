@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+<!-- <style>
+
+.admin-side {
+    width: 300px;
+    background-color: #041416;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    padding-bottom: 50px;
+    border-right: 2px solid white;
+}
+
+.admin-side .logo{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.admin-side .logo a{
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+
+}
+.admin-side .logo img {
+    max-width: 30%;
+    height: auto;
+}
+.admin-side .logo h4{
+    font-size: 16px;
+    color: white;
+}
+.admin-side .logo span{
+    color: #24CFED;
+}
+
+.sidebar-navigation a {
+    display: block;
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar-navigation a:hover {
+    background-color: #24CFED;
+    color: black;
+    border-left: 3px solid whitesmoke;
+    
+}
+
+@media (max-width: 768px) {
+    .admin-side {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-navigation a {
+        text-align: center;
+    }
+}
+
+</style> -->
+
+{% block content %}
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="dashboard">
+    <div class="admin-side sidebar">
+        <div class="logo container">
+                <img src="{% static 'Images/publicpulselogo.png' %}" alt="Public Pulse Logo">
+                <a href="/">
+                    <h4>Public<span>Pulse</span></h4>
+                </a>
+        </div>
+        <div class="sidebar-navigation">
+            <a href="">Dashboard Overview</a>
+            <a href="user_management">User Management</a>
+            <a href="interaction_management">Interaction Management</a>
+            <a href="overall_sentiment_score">Sentiment Analysis</a>
+            <a href="generate_recommendations">Recommendation Engine</a>
+            <hr/>
+            <a href="logout" class="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="content">
+                <div class="dashboard_overview">
+                    <h2>Dashboard Overview</h2>
+                    <div class="users-complaints">
+                        <div class="users">
+                            <p>Total Number of Users: {{total_users}}</p>
+                        </div>
+                        <div class="complaints">
+                            <p>Total Complaints: {{ total_complaints }}</p>
+                            <p>New Complaints: {{ new_complaints }}</p>
+                            <p>Resolved Complaints: {{ resolved_complaints }}</p>
+                            <p>Pending Complaints: {{ pending_complaints }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="graphs">
+                        <div class="trends">
+                            <h3>Daily Interaction Trends</h1>
+                            <canvas id="recentTrends" width="400" height="400"></canvas>
+    
+                            <script>
+                                var trendData = JSON.parse('{{ trend_data|safe }}');
+                                var dates = trendData.map(function(item) { return item.date; });
+                                var counts = trendData.map(function(item) { return item.count; });
+    
+                                var ctx = document.getElementById('recentTrends').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: dates,
+                                        datasets: [{
+                                            label: 'Complaints',
+                                            data: counts,
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <div class="categories">
+                            <h3>Complaint Categories</h1>
+                            <canvas id="categoriesChart" width="400" height="400"></canvas>
+                            <script>
+                                // Parse the Django context variables to JSON for JavaScript
+                                var labels = JSON.parse('{{ labels|safe }}');
+                                var counts = JSON.parse('{{ counts|safe }}');
+                        
+                                var ctx = document.getElementById('categoriesChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Number of Complaints',
+                                            data: counts,
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(32, 200, 60, 0.2)',
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(32, 200, 60, 0.2)',
+                                                'rgba(255, 0, 0, 0.2)',
+                                                'rgba(0, 128, 255, 0.2)',
+                                                'rgba(255, 165, 0, 0.2)',
+                                                'rgba(0, 255, 0, 0.2)',
+                                                'rgba(128, 0, 128, 0.2)',
+                                                'rgba(255, 255, 0, 0.2)',
+                                                // ... more colors for each category
+                                            ],
+                                            borderColor: [
+                                                'rgba(255, 99, 132, 1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 206, 86, 1)',
+                                                'rgba(32, 200, 60, 1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                'rgba(255, 206, 86,1)',
+                                                'rgba(32, 200, 60, 1)',
+                                                'rgba(255, 0, 0, 1)',
+                                                'rgba(0, 128, 255, 1)',
+                                                'rgba(255, 165, 0, 1)',
+                                                'rgba(0, 255, 0, 1)',
+                                                'rgba(128, 0, 128, 1)',
+                                                'rgba(255, 255, 0, 1)',
+                                                // ... more border colors for each category
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    
+                </div>
+        </div>
+    </div>        
+</div>
+
+
+{% endblock %}

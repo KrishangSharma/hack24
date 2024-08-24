@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+
+<div class="details container">
+    <h2 class="mb-3">{{ profile.user.username }}'s Profile</h2>
+    <div class="user-info mb-4 p-3 border rounded bg-light">
+        <p>Email: {{ profile.user.email }}</p>
+        <p>Sub-County: {{ profile.sub_county }}</p>
+        <p>Ward: {{ profile.ward }}</p>
+    </div>
+
+    <div class="delete-user-form">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete User</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,823 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&family=Tiro+Telugu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200&display=swap');
+
+*{
+    margin: 0;
+   
+}
+h2{
+    font-size: 25px !important;
+}
+body, html{
+    background-color: #041416 !important;
+    font-family: "Inknut Antiqua" !important;
+}
+
+/* header */
+.logo{
+    width: 100px;
+    height: 100px; 
+}
+.header-logo{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.header-logo h2{
+    color: white;
+    font-size: 20px;
+    margin-top: 37px;
+    font-weight: bold;
+}
+.header-logo span{
+    color: #24CFED;
+}
+
+/* navbar */
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+.navbar{
+    width:100%;
+    color: black !important;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    
+}
+.navbar .container-fluid{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: whitesmoke;
+    color: black !important;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+}
+.navbar-toggler{
+    border: none;
+    width: 60px;
+    height: 40px;
+    border-radius: 0;
+}
+#n-bar{
+    text-align: center;
+}
+.navbar-toggler-icon{
+    width: 10px;
+    height: 10px;
+}
+  
+/* .sticky{
+    position: fixed;
+    top: 0;
+  
+} */
+.navbar a{
+    text-decoration: none;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    height: 100%;
+}
+  
+.navbar h4{
+    font-size: 17px;
+}
+  
+.navbar a:hover{
+    background-color: #24CFED;
+    color: black;
+}
+.auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-left: 40px;
+
+}
+.auth a{
+    background-color: #24CFED;
+    padding: 5px;
+    border-right: 1px solid rgba(222,222,222,1);
+}
+.auth a:hover{
+    background-color: rgba(180, 226, 240, 0.658);
+    color: black;
+}
+
+/* hero section */
+.hero-section {
+    position: relative;
+    height: 78vh;
+    background-image: url('Images/Parliament.jpg'); /* Replace with your actual image path */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    mix-blend-mode: hard-light;
+    
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #0b1516;
+    padding: 20px;
+    opacity: 0.9;
+}
+
+.hero-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+.hero-description {
+    font-size: 1rem;
+    margin-bottom: 40px;
+    font-family: 'Tiro Telugu';
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    background-color: #24CFED; /* Change the color according to your design */
+    color:black;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hero-button:hover {
+    background-color: rgba(180, 226, 240, 0.658);
+    /* Change the hover color according to your design */
+    color: white;
+    text-decoration: none;
+}
+
+/* about section */
+.about-section .container-fluid {
+    width: 100%;
+    padding: 20px;
+}
+
+.about-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.about-section .col-6,
+.about-section .col-4 {
+    flex: 0 0 calc((100% - 40px) / 2);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.about-section .content {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.about-section h2 {
+    color: #cccaca;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.about-section span {
+    color: #24CFED; /* Accent color */
+}
+
+.about-section p {
+    color: #f3f1f1;
+    font-size: 1em;
+    line-height: 1.5;
+    font-family: 'Tiro Telugu';
+}
+
+.about-section .image {
+    position: relative;
+}
+
+.aboutpic {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.back-rectangle {
+    position: absolute;
+    top: 10%;
+    left: 10%;    
+    width: 60%;
+    height: 80%;
+    background-color: #24CFED; /* Accent color */
+    opacity: 0.5;
+    border-radius: 8px;
+}
+  
+/* features section */
+.features-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+   
+}
+
+.features-section h2 {
+    text-align: center;
+    color: #cccaca;
+    margin-bottom: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.features-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+ 
+}
+
+.features-section .col-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.feature1 {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.feature1:hover {
+    transform: scale(1.05);
+}
+
+.eclipse1 {
+    background-color: #24CFED; /* Accent color */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.robot {
+    max-width: 100%;
+    height: auto;
+}
+
+.features-section h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.features-section p {
+    color: #666;
+    font-size: 1em;
+    font-family: 'Tiro Telugu' !important;
+}
+
+/* how it works section */
+.how-it-works .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.how-it-works h2 {
+    text-align: center;
+    color: #cccaca;
+    margin-bottom: 40px;
+    margin-top: 70px;
+    font-weight: bold;
+    
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.how-it-works .card {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 20px;
+    /* margin-right: 5px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.how-it-works .image1 {
+    height: auto;
+    max-width: 40%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.how-it-works button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+.how-it-works h4,p{
+    margin-top: 30px;
+}
+.how-it-works p{
+    font-family: 'Tiro Telugu';
+}
+.how-it-works h4{
+    font-size: 1em;
+}
+.carousel-prev {
+    left: 0;
+    font-weight: bold;
+}
+
+.carousel-next {
+    right: 0;
+    font-weight: bold;
+}
+
+/* Testimonials */
+.testimonials .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.testimonials h2 {
+    text-align: center;
+    color: #cccaca;
+    margin-bottom: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.testimonials .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.testimonials .card {
+    flex: 0 0 calc(33.33% - 20px);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials .card-header {
+    background-color: #24CFED;
+    color: black;
+    text-align: center;
+    padding: 15px;
+}
+
+.testimonials .user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.testimonials h4,
+.testimonials h6 {
+    margin: 0;
+}
+
+.testimonials .card-body {
+    padding: 15px;
+}
+
+.testimonials p {
+    color: #666;
+    font-size: 1em;
+    line-height: 1.5;
+    font-family: 'Tiro Telugu';
+}
+
+@media (max-width: 768px) {
+    .testimonials .card {
+        flex: 0 0 100%;
+    }
+}
+
+/* contact us section */
+.contact-us .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-us h2 {
+    text-align: left;
+    font-size: 25px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.contact-us .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-us label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.contact-us input,
+.contact-us textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.contact-us input:focus,
+.contact-us textarea:focus {
+    border-color: #24CFED;
+}
+
+.contact-us textarea {
+    resize: vertical;
+}
+
+.contact-us button {
+    background-color: #24CFED;
+    color: black;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.contact-us button:hover {
+    background-color: #0b1516;
+    color: white;
+
+}
+
+/* footer section */
+.footer-end .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer {
+    background-color: whitesmoke;
+    color: black;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-end .footer-section {
+    flex: 0 0 calc(33.33% - 20px);
+    margin-bottom: 20px;
+}
+
+.footer-end h3 {
+    color: #24CFED;
+    margin-bottom: 20px;
+}
+
+.footer-end p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer .social-icons a:hover {
+    color: #24CFED;
+}
+
+.footer-end .contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.footer-end input,
+.footer-end textarea,
+.footer-end button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.footer-end input:focus,
+.footer-end textarea:focus {
+    border-color: #24CFED;
+}
+
+.footer-end button {
+    background-color: #24CFED;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.footer-end button:hover {
+    background-color: rgba(180, 226, 240, 0.658);
+}
+.footer-end .copyright{
+    margin-top: 50px;
+    text-align: center;
+
+}
+
+@media (max-width: 768px) {
+    .footer-section {
+        flex: 0 0 100%;
+    }
+}
+
+/* register page */
+.citizenlogin{
+    width: 100%;
+    margin-top: 90px;
+    padding: 30px;
+  }
+  .citizenlogin .row{
+    display: flex;
+    justify-content: center;
+  }
+  .citizenlogin form{
+    width: 600px;
+    border-radius: 0;
+    padding: 20px;
+    height: 400px;
+  }
+
+  .citizenlogin .loginpage{
+    padding: 80px;
+  }
+  .citizenlogin .form-outline{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .citizenlogin .form-outline .form-control{
+    width: 300px;
+    font-size: 12px;
+    border: 2px #24CFED solid;
+  }
+  .citizenlogin .form-outline .fa{
+    width: 30px;
+  }
+  .citizenlogin .col{
+    font-size: 10px;
+  }
+  .welcome-back{
+    color: white;
+    background-color: #24CFED;
+    padding: 80px;
+  }
+  .welcome-back h2{
+    padding: 10px;
+    margin: 20px;
+  }
+  .welcome-back p{
+    line-height: 10px;
+    color: black;
+  }
+  
+  .citizenlogin .btn{
+    
+    background-color: #0b1516;
+    margin-top: 10px;
+    font-size: 12px;
+    cursor: pointer;
+    width: 100px;
+    color: white;
+    box-shadow: 0px 0px 5px;
+  }
+  .citizenlogin .btn:hover{
+    color: black;
+    width: 120px;
+    background-color: #24CFED;
+  }
+  .citizenlogin form h4{
+    padding: 10px;
+    font-size: 20px;
+    margin: 20px;
+  }
+
+ 
+/* chatbot */
+/* body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+} */
+
+.chat-container {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 60px;
+    height: 670px !important;
+    background-color: #24CFED;
+    padding: 50px;
+    border-radius: 30px;
+    box-sizing: border-box;
+}
+
+.chat-container .card {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.chat-container .card-header {
+    color: black;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    
+}
+
+.chat-container .title{
+    background-color:whitesmoke;
+    display: flex;
+    border-radius: 20px;
+    justify-content: center;
+
+}
+
+.title h2{
+    text-align: center;
+}
+.logout-link {
+    color: black;
+    background-color: #24CFED;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    text-decoration: none;
+    
+}
+.logout-link:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.messages-box {
+    background-color: white;
+    height: 450px;
+    overflow-y: auto;
+    padding: 10px;
+    word-wrap: break-word;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-container .message {
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    border-radius: 20px;
+}
+.title .logo{
+    width: 80px;
+    height: 80px;
+}
+.logo-chat{
+    width: 50px;
+    height: 50px;
+}
+.message.received {
+    background-color: #041416;
+    align-self: flex-start;
+    color: white;
+    font-family: 'Tiro Telugu';
+    font-size: 15px;
+}
+
+.message.sent {   
+    align-self: flex-end;
+    font-family: 'Tiro Telugu';
+    font-size: 15px;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: black;
+}
+.you{
+    color: black;
+}
+
+.message-form {
+    display: flex;
+    padding: 10px;
+}
+
+.chat-container .form-control {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 12px;
+}
+
+.chat-container .btn-primary {
+    background-color: white;
+    border: none;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: black;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.chat-container .btn-primary:hover {
+    background-color: rgba(180, 226, 240, 0.658);
+    color: white;
+}
+
+

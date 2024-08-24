@@ -1,0 +1,502 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&family=Tiro+Telugu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+body, html{
+    background-color: #041416 !important;
+    font-family: "Inknut Antiqua" !important;
+}    
+
+/* a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    border-left: 3px solid #007bff;
+
+} */
+
+/* Dashboard Layout */
+.dashboard{
+    display: flex;
+    justify-content: center;
+
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 80px;
+    justify-content: center;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+
+.admin-side {
+    width: 300px;
+    background-color: #041416;
+    color: white;
+    height: 100vh;
+    padding-bottom: 50px;
+}
+
+.admin-side .logo{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #041416;
+    margin-top: 0px;
+}
+.admin-side .logo a{
+    text-decoration: none;
+    color: white;
+    font-size: 10px;
+
+}
+.admin-side .logo img {
+    max-width: 20%;
+    height: auto;
+}
+.admin-side .logo h4{
+    font-size: 16px;
+    color: white;
+}
+.admin-side .logo span{
+    color: #24CFED;
+}
+.sidebar-navigation{
+    margin-top: -10px;
+}
+.sidebar-navigation a {
+    display: block;
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+.sidebar-navigation a:hover {
+    background-color: #24CFED;
+    color: black;
+    border-left: 3px solid whitesmoke;
+    
+}
+@media (max-width: 768px) {
+    .admin-side {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-navigation a {
+        text-align: center;
+    }
+}
+
+
+/* Content Area */
+.content {
+    padding: 20px;
+}
+
+/* Sentiment Analysis, Keywords, and Category Sentiments Sections */
+.sentiment-analysis, .category_sentiments {
+    background: whitesmoke;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+    margin-top: 40px;
+}
+
+/* Sentiment Results Styling */
+.container-fluid {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #f8f9fa;
+}
+
+.sentiment-title {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.sentiment-summary {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.overall-sentiment {
+    color: #03697a; 
+    font-family: 'Tiro telugu';
+    margin: 10px 0;
+}
+
+.overall-sentiment span {
+    font-weight: bold;
+}
+
+.average-score {
+    color: #333;
+    font-size: 16px;
+}
+
+.average-score span {
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 10px;
+    }
+
+    .sentiment-summary {
+        padding: 15px;
+    }
+
+    .overall-sentiment, .average-score {
+        font-size: 14px;
+    }
+}
+   
+.chart-and-pie{
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    margin-top: 20px;
+}
+.pie-chart{
+    width: 500px !important;
+    height: 500px !important;
+}
+
+.category_sentiments{
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+.keywords{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    padding-top: 20px;
+}
+.keywords h2{
+    font-size: 15px !important;
+    font-weight: bold;
+}
+.keywords ul li{
+    font-family: 'Tiro Telugu';
+}
+h1, h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #dee2e6;
+}
+th {
+    background-color: #f8f9fa;
+}
+td{
+    font-family: 'Tiro Telugu';
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-side, .content {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .admin-side {
+        padding-bottom: 20px;
+    }
+    
+    .content {
+        padding-top: 20px;
+    }
+}
+
+/* Enhancements for DataTables */
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+
+/* chats filter */
+
+.container {
+    width: 70%;
+    max-width: 700px;
+    margin: 5rem auto;
+    padding: 20px;
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
+}
+
+.filter-form form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 12px !important;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    border-radius: 10px;
+
+}
+
+.filter-form button {
+    padding: 1px 30px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.filter-form button:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+    .filter-form form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-form button {
+        width: 100%; /* Makes the button full-width on smaller screens */
+    }
+}    
+
+/* user management */
+.profiles .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    border-radius: 0.25rem; /* Slight rounding of corners */
+}
+
+.profiles .card-title {
+    font-size: 1.25rem; /* Adjust title size */
+    color: #333; /* Darker color for title */
+}
+
+.profiles .card-text {
+    color: #555; /* Slightly lighter text */
+}
+
+.profiles .btn-primary {
+    background-color: #007bff; /* Adjust button color if needed */
+    border-color: #007bff;
+}
+.details .user-info p {
+    font-size: 1.1rem; /* Larger font for readability */
+    margin-bottom: 0.5rem; /* Spacing between lines */
+}
+
+.details .delete-user-form {
+    margin-top: 2rem; /* Space above the delete button */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Red color for delete button */
+    border-color: #dc3545;
+}
+
+/* admin dashboard */
+.dashboard_overview {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.dashboard_overview h3 {
+    color: #444;
+    font-size: 15px;
+}
+.dashboard_overview h2{
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.dashboard_overview .trends, .categories {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 500px;
+    height: 500px;
+}
+.dashboard_overview .users-complaints{
+    display: flex;
+    justify-content: center;
+}
+.dashboard_overview .users{
+    font-size: 50px;
+    background-color: #041416;
+    color: white;
+    text-align: center;
+    padding: 100px;
+    border-radius: 10px;
+}
+.dashboard_overview div, .trends, .categories {
+    margin-top: 15px;
+}
+
+.dashboard_overview canvas {
+    max-width: 100%;
+    height: auto;
+}
+.dashboard_overview .graphs{
+    display: flex;
+    justify-content: center;
+}
+/* Flexbox for sections */
+.dashboard_overview > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dashboard_overview > div > div {
+    flex: 1;
+    min-width: 200px; /* minimum width for each block */
+}
+.dashboard_overview p{
+    font-family: 'Tiro Telugu';
+}
+.dashboard_overview .complaints p{
+    background-color: #24CFED;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard_overview > div {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard_overview {
+        padding: 10px;
+    }
+
+    .dashboard_overview > div > div {
+        min-width: 100%;
+    }
+}
+
+/* Recommendation system */
+.recommendations {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.recommendations p{
+    font-size: 17px;
+    text-align: center;
+    background-color: #041416;
+    padding: 20px;
+    color: white;
+}
+.recommendations.cards {
+    gap: 20px;
+    justify-content: center;
+}
+
+.recommendations .card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.recommendations .card h3 {
+    background-color: #24CFED;
+    color: #fff;
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 1.25em;
+}
+
+.recommendations .card-content {
+    padding: 20px;
+}
+
+.recommendations .card-content h4 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.recommendations ul {
+    padding: 0;
+    list-style: none;
+}
+
+.recommendations ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    font-family: 'Tiro Telugu';
+    font-size: 14px;
+}
+
+.recommendations ul li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .recommendations .cards {
+        flex-direction: column;
+    }
+
+    .recommendations .card {
+        width: 100%;
+    }
+}

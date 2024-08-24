@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Pulse</title>
+</head>
+<body>
+    <div class="citizenlogin container text-center">
+        <div class="row">
+            <form class="form-control loginpage col-md-8" method="post">
+                {% csrf_token %}
+                <h4>Sign In to Public Pulse</h4>
+                <div class="form-outline mb-4">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input 
+                    type="text" 
+                    placeholder="Username *" 
+                    name="username"
+                    class="form-control" 
+                    required />
+                </div>
+                <div class="form-outline mb-4">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input 
+                    type="password" 
+                    placeholder="Password *" 
+                    name="password"
+                    minLength='6' 
+                    class="form-control" 
+                    required />
+                </div>
+                <button type="submit" class="btn btn-block mb-4">Sign in</button>
+            </form>
+            <div class="welcome-back col-md-4">
+                <h2>Welcome Back!</h2>
+                <p>Don't have an account?</p>
+                <p>Click below to continue</p>
+
+                <a href="register">
+                    <button type="button" class="btn btn-block mb-4">Sign Up</button>
+                </a>    
+            </div>
+        </div>
+    </div>   
+</body>
+</html>
+{% endblock %}
