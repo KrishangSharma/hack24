@@ -40,7 +40,9 @@ from .models import Chat, UserProfile
 from django.utils import timezone
 from django.http import JsonResponse
 import google.generativeai as genai
-
+# Update the chatbot view to handle HTML responses
+from django.http import JsonResponse
+from django.utils.safestring import mark_safe
 from textblob import TextBlob
 from collections import Counter
 from nltk.corpus import stopwords
@@ -60,19 +62,121 @@ from itertools import groupby
 from django.utils.timezone import localtime
 
 import joblib
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.utils.safestring import mark_safe
+from .models import Chat
+from django.utils import timezone
+import random
 
-# Configure Gemini API
+def generate_fir_number():
+    return f"DL{timezone.now().strftime('%Y%m%d')}{random.randint(1, 99):02d}"
+
+def chatbot(request):
+    chats = Chat.objects.filter(user=request.user.id)
+
+    if request.method == 'POST':
+        message = request.POST.get('message')
+
+        # Check if the message contains keywords related to filing a complaint
+        if any(keyword in message.lower() for keyword in ['complaint', 'report', 'crime', 'hit', 'accident']):
+            fir_number = generate_fir_number()
+            response = f"""
+            <h3>Hi Krishang! I am the Public Pulse Citizen Assistant.</h3>
+            <p>Your complaint has been successfully lodged with the Delhi Police.</p>
+            <p><strong>SHANTI SEWA NYAYA</strong></p>
+            <p>Your FIR number is {fir_number}.</p>
+            <p>This FIR has been registered regarding the incident you reported. The Delhi Police will investigate this matter and may contact you for further details. Please keep this FIR number for your records and future reference.</p>
+            <p>If you have any additional information or questions about your case, don't hesitate to contact the local police station handling your complaint.</p>
+            """
+        else:
+            # Use the existing ask_gemini function for other types of messages
+            response = ask_gemini(message)
+
+        # Save the chat to the database
+        chat = Chat(user=request.user, message=message, response=response, created_at=timezone.now())
+        chat.save()
+
+        return JsonResponse({'message': message, 'response': mark_safe(response)})
+
+    return render(request, 'chatbot.html', {'chats': chats})
+
 genai.configure(api_key='AIzaSyCYYO8mrdaJQl2thAoiqcRZZE-DVWVyiA0')
 model = genai.GenerativeModel('gemini-pro')
 
+def format_response(response):
+    if "file a complaint" in response.lower() or "crime" in response.lower():
+        return f"""
+        <h3>Hi Shiva! I am the Public Pulse Citizen Assistant.</h3>
+        <h4>Steps to File a Crime Complaint:</h4>
+        <ol>
+            <li><strong>Determine the Jurisdiction:</strong>
+                <ul>
+                    <li>Identify the location where the crime occurred.</li>
+                    <li>Contact the local police department or sheriff's office in that jurisdiction.</li>
+                </ul>
+            </li>
+            <li><strong>Contact the Police or Sheriff:</strong>
+                <ul>
+                    <li>Call the non-emergency line or visit the police station in person.</li>
+                    <li>Explain the situation and request to file a crime report or complaint.</li>
+                </ul>
+            </li>
+            <li><strong>Provide Details:</strong>
+                <ul>
+                    <li>Be clear and concise in describing the crime, including:</li>
+                    <li>Date, time, and location</li>
+                    <li>Type of crime committed</li>
+                    <li>Description of any suspects or witnesses</li>
+                    <li>Evidence or other relevant information</li>
+                </ul>
+            </li>
+            <li><strong>Gather Documentation:</strong>
+                <ul>
+                    <li>Bring any evidence you have, such as:</li>
+                    <li>Photos or videos</li>
+                    <li>Receipts or invoices</li>
+                    <li>Medical records</li>
+                    <li>Witness statements</li>
+                </ul>
+            </li>
+            <li><strong>Complete the Report:</strong>
+                <ul>
+                    <li>The police officer will take your statement and complete a formal crime report.</li>
+                    <li>Read the report carefully and make sure all the information is accurate.</li>
+                    <li>Sign and date the report.</li>
+                </ul>
+            </li>
+            <li><strong>Follow Up:</strong>
+                <ul>
+                    <li>Once the report is filed, the police may contact you for additional information or to provide updates on the investigation.</li>
+                    <li>Be patient as the investigation progresses.</li>
+                </ul>
+            </li>
+        </ol>
+        <h4>Additional Tips:</h4>
+        <ul>
+            <li>Stay calm and cooperative with the police.</li>
+            <li>Provide as much detail as you can recall.</li>
+            <li>Be honest even if the crime involves someone you know.</li>
+            <li>Consider seeking legal advice if the crime is serious or involves substantial losses.</li>
+            <li>Keep a copy of the crime report for your records.</li>
+        </ul>
+        <p><strong>Emergency Situations:</strong> In case of a life-threatening emergency or a crime in progress, call 911 immediately.</p>
+        """
+    return f"<p>Hi Shiva! I am the Public Pulse Citizen Assistant.</p><p>{response}</p>"
+
+# Update the ask_gemini function to use the new format_response
 def ask_gemini(message):
     try:
         response = model.generate_content(message)
-        print(response)
-        return response.text.strip()
+        formatted_response = format_response(response.text.strip())
+        return formatted_response
     except Exception as e:
         print(f"Error in ask_gemini: {e}")
-        return "I'm sorry, but I encountered an error while processing your request."
+        return format_response("I'm sorry, but I encountered an error while processing your request.")
+
+
 
 def chatbot(request):
     chats = Chat.objects.filter(user=request.user.id)
@@ -84,7 +188,7 @@ def chatbot(request):
 
         chat = Chat(user=request.user, message=message, response=response, created_at=timezone.now(), category=category, sentiment_score=sentiment)
         chat.save()
-        return JsonResponse({'message': message, 'response': response})
+        return JsonResponse({'message': message, 'response': mark_safe(response)})
     return render(request, 'chatbot.html', {'chats': chats})
 
 def login(request):
