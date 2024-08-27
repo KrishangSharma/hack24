@@ -1,37 +1,3 @@
-# from django.shortcuts import render, redirect
-# from django.contrib import auth
-# from django.contrib.auth.models import User
-
-# from .models import Chat, UserProfile
-# from django.utils import timezone
-# from django.http import JsonResponse
-# import openai
-
-# from textblob import TextBlob
-# from collections import Counter
-# from nltk.corpus import stopwords
-# from nltk.stem import PorterStemmer
-# from nltk.tokenize import word_tokenize
-# import nltk
-# from .forms import UserProfileForm
-# from django.contrib import messages
-# nltk.download('stopwords')
-# nltk.download('punkt')
-
-# import spacy
-# from .forms import CustomPasswordChangeForm
-# from django.contrib.auth.forms import PasswordChangeForm
-# from django.contrib.auth import update_session_auth_hash
-
-# from itertools import groupby
-# from django.utils.timezone import localtime
-
-# import joblib
-
-
-# openai_api_key='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'
-# openai.api_key=openai_api_key
-
 
 from django.shortcuts import render, redirect
 from django.contrib import auth
