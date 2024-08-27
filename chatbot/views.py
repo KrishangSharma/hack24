@@ -48,7 +48,7 @@ def chatbot(request):
         if any(keyword in message.lower() for keyword in ['complaint', 'report', 'crime', 'hit', 'accident']):
             fir_number = generate_fir_number()
             response = f"""
-            <h3>Hi Krishang! I am the Public Pulse Citizen Assistant.</h3>
+            <h3>Hi! I am the ResolveIt Citizen Assistant.</h3>
             <p>Your complaint has been successfully lodged with the Delhi Police.</p>
             <p><strong>SHANTI SEWA NYAYA</strong></p>
             <p>Your FIR number is {fir_number}.</p>
@@ -73,7 +73,7 @@ model = genai.GenerativeModel('gemini-pro')
 def format_response(response):
     if "file a complaint" in response.lower() or "crime" in response.lower():
         return f"""
-        <h3>Hi Shiva! I am the Public Pulse Citizen Assistant.</h3>
+        <h3>Hi! I am the ResolveIt Citizen Assistant.</h3>
         <h4>Steps to File a Crime Complaint:</h4>
         <ol>
             <li><strong>Determine the Jurisdiction:</strong>
@@ -130,7 +130,7 @@ def format_response(response):
         </ul>
         <p><strong>Emergency Situations:</strong> In case of a life-threatening emergency or a crime in progress, call 911 immediately.</p>
         """
-    return f"<p>Hi Shiva! I am the Public Pulse Citizen Assistant.</p><p>{response}</p>"
+    return f"<p>Hi! I am the ResolveIt Citizen Assistant.</p><p>{response}</p>"
 
 # Update the ask_gemini function to use the new format_response
 def ask_gemini(message):
